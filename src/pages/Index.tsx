@@ -16,8 +16,8 @@ const Index = () => {
    * CUSTOMIZATION SECTION - EDIT THESE VALUES
    * ========================================
    */
-  const sisterName = "Sarah"; // CHANGE YOUR SISTER'S NAME HERE
-  const senderName = "Your Brother"; // CHANGE YOUR NAME HERE
+  const sisterName = "Nidhi"; // CHANGE YOUR SISTER'S NAME HERE
+  const senderName = "Yash Bro"; // CHANGE YOUR NAME HERE
 
   return (
     <div className="font-nunito bg-background min-h-screen">

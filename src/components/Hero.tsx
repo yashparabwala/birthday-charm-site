@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 interface HeroProps {
   onBlowCandles: () => void;
   hasBlownCandles: boolean;
-  sisterName: "Nidhi Dii"; // CHANGE NAME HERE
+  sisterName: String; // CHANGE NAME HERE
 }
 
 const Hero = ({ onBlowCandles, hasBlownCandles, sisterName }: HeroProps) => {
