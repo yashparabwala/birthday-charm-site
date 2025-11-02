@@ -14,10 +14,9 @@ const TypewriterMessages = () => {
 
   // CHANGE MESSAGES HERE
   const messages: Message[] = [
-    { text: "You make every day brighter with your smile!", from: "Mom" },
-    { text: "The best sister and friend I could ever ask for!", from: "Dad" },
+    { text: "The best sister and friend I could ever ask for!", from: "Neha" },
     { text: "So grateful to have you in my life!", from: "Your Brother" },
-    { text: "Here's to all the amazing memories we'll create together!", from: "Your Family" },
+    { text: " Mari Jadi you make my every day brighter with your smile!", from: "Mom" },
   ];
 
   useEffect(() => {
@@ -55,7 +54,7 @@ const TypewriterMessages = () => {
           viewport={{ once: true }}
           className="text-4xl md:text-5xl font-poppins font-bold text-center text-primary mb-16"
         >
-          Messages from loved ones 💌
+          Messages from Your loved ones 💌
         </motion.h2>
 
         <div className="space-y-8">

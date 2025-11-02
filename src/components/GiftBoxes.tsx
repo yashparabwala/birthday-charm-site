@@ -14,17 +14,17 @@ const GiftBoxes = () => {
   const gifts: GiftBox[] = [
     {
       id: 1,
-      message: "You light up every room you walk into! Your smile is contagious! 💫",
+      message: "behna jio hajaro saal 💫",
       icon: <Sparkles className="w-12 h-12 text-accent" />,
     },
     {
       id: 2,
-      message: "Thank you for being the best sister anyone could ask for! 💕",
+      message: "Here's to another year of doing masti and heran 😜",
       icon: <Heart className="w-12 h-12 text-secondary" />,
     },
     {
       id: 3,
-      message: "Here's to another year of amazing adventures together! 🎉",
+      message: "Thank you for being the best sister 💕",
       icon: <Gift className="w-12 h-12 text-primary" />,
     },
   ];

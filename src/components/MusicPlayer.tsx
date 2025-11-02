@@ -10,7 +10,7 @@ const MusicPlayer = () => {
 
   // Note: Add your own birthday music file to public/audio/birthday-song.mp3
   // For now, this is a placeholder that won't load an actual file
-  const audioSrc = "/audio/birthday-song.mp3"; // CHANGE MUSIC HERE
+  const audioSrc = "https://www.youtube.com/watch?v=nl62hhiBMOM&list=PLAxg13WskxWYq6Fe34UGbLVNlBlK9tyxA&index=13"; // CHANGE MUSIC HERE
 
   useEffect(() => {
     const audio = audioRef.current;

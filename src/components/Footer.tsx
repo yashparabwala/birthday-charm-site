@@ -3,7 +3,7 @@ import { Heart, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface FooterProps {
-  senderName: string; // CHANGE NAME HERE
+  senderName: "Yash Bro"; // CHANGE NAME HERE
 }
 
 const Footer = ({ senderName }: FooterProps) => {

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 interface HeroProps {
   onBlowCandles: () => void;
   hasBlownCandles: boolean;
-  sisterName: string; // CHANGE NAME HERE
+  sisterName: "Nidhi Dii"; // CHANGE NAME HERE
 }
 
 const Hero = ({ onBlowCandles, hasBlownCandles, sisterName }: HeroProps) => {
@@ -107,7 +107,7 @@ const Hero = ({ onBlowCandles, hasBlownCandles, sisterName }: HeroProps) => {
                 size="lg"
                 className="bg-accent hover:bg-accent/90 text-accent-foreground font-poppins text-xl px-12 py-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
-                🎂 Blow the Candles
+                CLick TO Blow the Candles 🎂
               </Button>
             </motion.div>
           </>

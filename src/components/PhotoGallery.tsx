@@ -2,10 +2,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import photo1 from "@/assets/photo1.jpg";
-import photo2 from "@/assets/photo2.jpg";
-import photo3 from "@/assets/photo3.jpg";
-import photo4 from "@/assets/photo4.jpg";
+// import photo1 from "@/assets/photo1.jpg";
+// import photo2 from "@/assets/photo2.jpg";
+// import photo3 from "@/assets/photo3.jpg";
+// import photo4 from "@/assets/photo4.jpg";
 
 interface Photo {
   src: string;
@@ -17,10 +17,10 @@ const PhotoGallery = () => {
 
   // CHANGE PHOTOS HERE - Add your own images to src/assets/
   const photos: Photo[] = [
-    { src: photo1, caption: "Golden hour laughter in the park 🌅" },
-    { src: photo2, caption: "Beach memories at sunset 🏖️" },
-    { src: photo3, caption: "Baking adventures together 🍰" },
-    { src: photo4, caption: "Road trip sing-alongs 🚗" },
+    { src: "https://drive.google.com/file/d/12x5Z_fZglbWsawvkvED7MQnenr-rfZgI/view?usp=sharing", caption: "Golden hour laughter in the trip 🌅" },
+    { src: "https://drive.google.com/file/d/1Vyx514JFJjavN-QjlGSPenRsXZkklFWS/view?usp=sharing", caption: "Beach memories at sunset 🏖️" },
+    { src: "https://drive.google.com/file/d/1nyHEMWF1mB1NkiUgs8l45fWSM1y7UGKD/view?usp=sharing", caption: "Baking adventures together 🍰" },
+    { src: "https://drive.google.com/file/d/1OPba12VS6KzrNmD99g52L25009sk7AfR/view?usp=sharing", caption: "nice memories 🥰" },
   ];
 
   const handlePrevious = () => {
