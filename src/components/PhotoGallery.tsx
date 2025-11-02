@@ -8,40 +8,26 @@ interface Photo {
   caption: string;
 }
 
-/**
- * Accepts either:
- *  - a full Google Drive sharing URL like:
- *      https://drive.google.com/file/d/FILE_ID/view?usp=sharing
- *  - OR just the FILE_ID string
- * Returns a direct preview/downloadable URL that works as an <img src="...">.
- */
-function driveToPreviewUrl(input: string) {
-  // try to extract ID from full link, otherwise assume input is id
-  const match = input.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  const fileId = match ? match[1] : input;
-  return `https://drive.google.com/uc?export=view&id=${fileId}`;
-}
-
 const PhotoGallery = () => {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
 
-  // CHANGE PHOTOS HERE — you may paste either the full drive link or only the file ID
+  // ✅ Your local photos from the public folder
   const photos: Photo[] = [
     {
-      src: driveToPreviewUrl("https://drive.google.com/file/d/12x5Z_fZglbWsawvkvED7MQnenr-rfZgI/view?usp=sharing"),
-      caption: "Golden hour laughter in the trip 🌅",
+      src: "/IMG_4505.JPG",
+      caption: "Beautiful smile captured 🌸",
     },
     {
-      src: driveToPreviewUrl("https://drive.google.com/file/d/1Vyx514JFJjavN-QjlGSPenRsXZkklFWS/view?usp=sharing"),
-      caption: "Beach memories at sunset 🏖️",
+      src: "/IMG_4510.JPG",
+      caption: "Golden moments together ☀️",
     },
     {
-      src: driveToPreviewUrl("https://drive.google.com/file/d/1nyHEMWF1mB1NkiUgs8l45fWSM1y7UGKD/view?usp=sharing"),
-      caption: "Baking adventures together 🍰",
+      src: "/IMG-20221031-WA0019.jpg",
+      caption: "Memories that stay forever 💖",
     },
     {
-      src: driveToPreviewUrl("https://drive.google.com/file/d/1OPba12VS6KzrNmD99g52L25009sk7AfR/view?usp=sharing"),
-      caption: "Nice memories 🥰",
+      src: "/WhatsApp Image 2025-11-02 at 12.22.41 AM.jpeg",
+      caption: "Cherished memories 🥰",
     },
   ];
 
@@ -70,9 +56,10 @@ const PhotoGallery = () => {
           viewport={{ once: true }}
           className="text-4xl md:text-5xl font-poppins font-bold text-center text-primary mb-12"
         >
-          Treasured memories 📸
+          Treasured Memories 📸
         </motion.h2>
 
+        {/* Image Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {photos.map((photo, index) => (
             <motion.div
@@ -82,7 +69,7 @@ const PhotoGallery = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.06 }}
               whileHover={{ scale: 1.05 }}
-              className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer shadow-lg border-4 border-secondary"
+              className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer shadow-xl border-4 border-pink-200 hover:shadow-pink-300/50 transition-all duration-300"
               onClick={() => setSelectedPhotoIndex(index)}
               role="button"
               tabIndex={0}
@@ -94,14 +81,6 @@ const PhotoGallery = () => {
                 src={photo.src}
                 alt={photo.caption}
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  // fallback: show a simple placeholder if image fails
-                  (e.currentTarget as HTMLImageElement).src =
-                    "data:image/svg+xml;charset=UTF-8," +
-                    encodeURIComponent(
-                      `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='800'><rect width='100%' height='100%' fill='#f3f4f6'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#9ca3af' font-family='Arial' font-size='24'>Image not available</text></svg>`
-                    );
-                }}
               />
             </motion.div>
           ))}
@@ -157,9 +136,8 @@ const PhotoGallery = () => {
                   <ChevronRight className="w-8 h-8" />
                 </Button>
 
-                {/* Image */}
+                {/* Selected Image */}
                 <div className="bg-background rounded-2xl overflow-hidden shadow-2xl">
-                  {/* TS: selectedPhotoIndex is guaranteed non-null here */}
                   {typeof selectedPhotoIndex === "number" && (
                     <>
                       <img

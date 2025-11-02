@@ -13,7 +13,6 @@ const CakeSection: React.FC<CakeSectionProps> = ({ hasBlownCandles, onBlowCandle
   const [confettiRunning, setConfettiRunning] = useState(false);
 
   useEffect(() => {
-    // keep local state in sync if parent changes prop later
     setLocalBlown(hasBlownCandles);
   }, [hasBlownCandles]);
 
@@ -22,17 +21,15 @@ const CakeSection: React.FC<CakeSectionProps> = ({ hasBlownCandles, onBlowCandle
     setConfettiRunning(true);
 
     const end = Date.now() + duration;
-    const colors = ["#FFDDE6", "#F7D1D8", "#D4AF37", "#095B5B"];
+    const colors = ["#FFDDE6", "#F7D1D8", "#D4AF37", "#FF69B4"];
 
     (function frame() {
-      // two directional bursts to feel like a cake explosion
       confetti({
         particleCount: 6,
         spread: 55,
         angle: 60,
         origin: { x: 0.5, y: 0.6 },
         colors,
-        ticks: 120,
       });
       confetti({
         particleCount: 6,
@@ -40,66 +37,35 @@ const CakeSection: React.FC<CakeSectionProps> = ({ hasBlownCandles, onBlowCandle
         angle: 120,
         origin: { x: 0.5, y: 0.6 },
         colors,
-        ticks: 120,
       });
 
-      // sprinkle a few falling confetti after main bursts
-      confetti({
-        particleCount: 10,
-        spread: 100,
-        origin: { x: Math.random(), y: 0 },
-        gravity: 0.5,
-        colors,
-        ticks: 200,
-      });
-
-      if (Date.now() < end) {
-        requestAnimationFrame(frame);
-      } else {
-        setConfettiRunning(false);
-      }
+      if (Date.now() < end) requestAnimationFrame(frame);
+      else setConfettiRunning(false);
     })();
   };
 
   const handleBlowCandles = () => {
-    if (localBlown) return; // already done, ignore
+    if (localBlown) return;
     setShowPuff(true);
     setLocalBlown(true);
     onBlowCandles?.();
 
-    // small delay so puff anim shows nicely before confetti
-    setTimeout(() => {
-      runConfetti(3000);
-    }, 120);
-
-    // hide puff after animation
+    setTimeout(() => runConfetti(3000), 120);
     setTimeout(() => setShowPuff(false), 700);
   };
 
-  // keyboard accessible handler
-  const handleKey = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      handleBlowCandles();
-    }
-  };
-
-  // candle flame motion settings (looping flicker)
   const flameAnim = {
     initial: { scale: 1, opacity: 1, y: 0 },
     animate: (i: number) => ({
       y: [0, -2, 0],
-      scale: [1, 1.06, 1],
+      scale: [1, 1.05, 1],
       opacity: [1, 0.85, 1],
       transition: {
-        duration: 0.9 + (i % 3) * 0.12,
+        duration: 0.9 + (i % 3) * 0.1,
         repeat: Infinity,
         repeatType: "mirror",
-        ease: "easeInOut",
-        delay: i * 0.08,
       },
     }),
-    exit: { opacity: 0, scale: 0.6, transition: { duration: 0.25 } },
   };
 
   return (
@@ -108,105 +74,81 @@ const CakeSection: React.FC<CakeSectionProps> = ({ hasBlownCandles, onBlowCandle
         <div
           role="button"
           tabIndex={0}
-          aria-pressed={localBlown}
-          aria-label={localBlown ? "Candles blown" : "Tap to blow candles"}
           onClick={handleBlowCandles}
-          onKeyDown={handleKey}
-          className={`relative inline-block select-none focus:outline-none focus:ring-4 focus:ring-[#D4AF37]/30 rounded-lg`}
+          className="relative inline-block select-none focus:outline-none"
         >
-          {/* Cake base wrapper */}
-          <div className="relative flex flex-col items-center justify-center">
-            {/* Bottom layer */}
+          {/* Cake layers */}
+          <div className="relative flex flex-col items-center">
+            {/* Bottom round layer */}
             <div
-              className="rounded-2xl shadow-2xl border-4 border-[#F7D1D8]"
+              className="rounded-full shadow-2xl relative"
               style={{
-                width: 320,
-                height: 110,
-                background: "linear-gradient(180deg,#F7D1D8,#E8BFC9)",
+                width: 260,
+                height: 90,
+                background: "radial-gradient(circle at 50% 40%, #F7B6C2, #E891A6)",
               }}
             >
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div style={{ width: "85%", height: 6, background: "rgba(13,90,90,0.06)", borderRadius: 999 }} />
-              </div>
+              <div className="absolute inset-x-0 bottom-0 h-6 bg-pink-200 rounded-b-full"></div>
             </div>
 
-            {/* Middle layer */}
+            {/* Middle frosting */}
             <div
-              className="rounded-2xl shadow-xl border-4 border-[#FFDDE6] relative -mt-6 z-10"
+              className="rounded-full relative -mt-10 z-10 shadow-md"
               style={{
-                width: 240,
-                height: 86,
-                background: "linear-gradient(180deg,#FFF8F6,#FFEFF3)",
+                width: 200,
+                height: 70,
+                background: "radial-gradient(circle at 50% 40%, #FFF3F4, #FFD7E0)",
               }}
             >
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div style={{ width: "78%", height: 5, background: "rgba(13,90,90,0.05)", borderRadius: 999 }} />
-              </div>
+              <div className="absolute inset-x-0 bottom-0 h-5 bg-[#F7B6C2] rounded-b-full"></div>
             </div>
 
             {/* Top layer */}
             <div
-              className="rounded-2xl shadow-lg border-4 border-[#D4AF37] relative -mt-6 z-20"
+              className="rounded-full relative -mt-8 z-20 shadow-lg"
               style={{
-                width: 160,
-                height: 60,
-                background: "linear-gradient(180deg,#FFDDE6,#FFDFE8)",
+                width: 140,
+                height: 50,
+                background: "radial-gradient(circle at 50% 40%, #FFDDE6, #FFC2CF)",
               }}
             >
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div style={{ width: "70%", height: 4, background: "rgba(13,90,90,0.04)", borderRadius: 999 }} />
-              </div>
+              <div className="absolute inset-x-0 bottom-0 h-4 bg-[#F7A1B0] rounded-b-full"></div>
             </div>
 
-            {/* Candles row */}
+            {/* Candles */}
             <div className="absolute -top-14 left-1/2 -translate-x-1/2 flex gap-3 z-30">
               {[0, 1, 2, 3, 4].map((i) => (
                 <div key={i} className="flex flex-col items-center">
                   <AnimatePresence>
                     {!localBlown && (
-                      <motion.svg
-                        key={"flame-" + i}
-                        width="14"
-                        height="22"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="mb-1"
+                      <motion.div
                         custom={i}
+                        variants={flameAnim}
                         initial="initial"
                         animate="animate"
-                        exit="exit"
-                        variants={flameAnim}
-                        aria-hidden
-                      >
-                        <defs>
-                          <radialGradient id={`g${i}`} cx="50%" cy="40%">
-                            <stop offset="0%" stopColor="#FFD165" />
-                            <stop offset="60%" stopColor="#FF8A65" />
-                            <stop offset="100%" stopColor="#FF6B6B" />
-                          </radialGradient>
-                        </defs>
-                        <path d="M12 2C12 2 7 7 7 11.5C7 15.5 9.5 18 12 20C14.5 18 17 15.5 17 11.5C17 7 12 2 12 2Z" fill={`url(#g${i})`} />
-                        <ellipse cx="12" cy="21" rx="4" ry="1.5" fill="rgba(0,0,0,0.05)" />
-                      </motion.svg>
+                        className="w-2 h-4 mb-1 rounded-full"
+                        style={{
+                          background:
+                            "radial-gradient(circle, #FFD165 20%, #FF8A65 60%, #FF6B6B 100%)",
+                          boxShadow: "0 0 10px rgba(255, 140, 80, 0.7)",
+                        }}
+                      />
                     )}
                   </AnimatePresence>
-
-                  {/* candle body */}
                   <div
+                    className="rounded"
                     style={{
                       width: 6,
-                      height: 36,
-                      borderRadius: 4,
-                      background: "linear-gradient(180deg,#FFFFFF,#FFECEC)",
-                      boxShadow: "inset 0 -4px 6px rgba(0,0,0,0.06)",
+                      height: 30,
+                      background: "linear-gradient(180deg,#fff,#FFDDE6)",
+                      border: "1px solid #FFC2CF",
                     }}
-                  />
+                  ></div>
                 </div>
               ))}
             </div>
 
-            {/* Puff animation — three circles expanding */}
+            {/* Puff animation */}
             <AnimatePresence>
               {showPuff && (
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-40 pointer-events-none">
@@ -214,13 +156,13 @@ const CakeSection: React.FC<CakeSectionProps> = ({ hasBlownCandles, onBlowCandle
                     <motion.div
                       key={"puff-" + i}
                       initial={{ opacity: 0.9, scale: 0.2, x: (i - 1) * 18 }}
-                      animate={{ opacity: 0, scale: 2.2, y: -26 + i * -6 }}
-                      transition={{ duration: 0.65, delay: i * 0.08, ease: "easeOut" }}
+                      animate={{ opacity: 0, scale: 2, y: -26 + i * -6 }}
+                      transition={{ duration: 0.6, delay: i * 0.08, ease: "easeOut" }}
                       style={{
-                        width: 28,
-                        height: 28,
+                        width: 26,
+                        height: 26,
                         borderRadius: 999,
-                        background: "rgba(13,90,90,0.06)",
+                        background: "rgba(200,200,200,0.15)",
                         filter: "blur(6px)",
                         position: "absolute",
                       }}
@@ -231,15 +173,15 @@ const CakeSection: React.FC<CakeSectionProps> = ({ hasBlownCandles, onBlowCandle
             </AnimatePresence>
           </div>
 
-          {/* helper text */}
-          <div className="mt-8">
+          {/* Text below */}
+          <div className="mt-10">
             {!localBlown ? (
               <motion.p
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-lg font-medium text-[#095B5B]"
               >
-                Tap the cake — make a wish! 🕯️
+                Tap the cake to blow the candles 🕯️
               </motion.p>
             ) : (
               <motion.p
